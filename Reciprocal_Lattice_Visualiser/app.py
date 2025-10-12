@@ -198,4 +198,19 @@ try:
 except Exception:
     pass
 
+# -----------------------------------
+# Instructions Section
+# -----------------------------------
+st.markdown("---") # Adds a horizontal line for visual separation
+st.subheader("How to Use This Visualizer")
+st.markdown("""
+- **⚙️ Adjust Controls:** Use the sidebar on the left to select the lattice type (e.g., Simple Cubic, BCC), adjust the lattice constant ($a$), and set the number of unit cells to display.
+- **👀 Toggle Visibility:** Use the checkboxes in the sidebar to show or hide different components:
+    - **🔵 Real Lattice:** The crystal lattice in real physical space.
+    - **🔴 Reciprocal Lattice:** The corresponding lattice in k-space (Fourier space).
+    - **🟦 Wigner–Seitz Cell:** The primitive cell of the real lattice.
+    - **🟥 Brillouin Zone:** The Wigner-Seitz cell of the reciprocal lattice.
+- **🧭 Interact with the Plot:** Click and drag the plot to rotate the 3D view. Use your mouse scroll wheel to zoom in and out. The camera position is preserved as you change the settings.
+""")
+
 st.caption("<center>Made by Hemanth M</center>", unsafe_allow_html=True)
