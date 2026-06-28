@@ -1058,7 +1058,7 @@
                     if (item.kind === 'file') {
                         const entry = item.webkitGetAsEntry();
                         if (entry) {
-                            await traverseFileTree(entry, files);
+                            await traverseFileTree(entry, files, 0);
                         }
                     }
                 }
@@ -1066,23 +1066,32 @@
             }
         });
 
-        async function traverseFileTree(item, files) {
+        async function traverseFileTree(item, files, depth = 0) {
             if (item.isFile) {
                 const file = await new Promise(resolve => item.file(resolve));
                 files.push(file);
-            } else if (item.isDirectory) {
+            } else if (item.isDirectory && depth === 0) {
                 const dirReader = item.createReader();
                 const entries = await new Promise(resolve => {
                     dirReader.readEntries(resolve);
                 });
                 for (let i = 0; i < entries.length; i++) {
-                    await traverseFileTree(entries[i], files);
+                    await traverseFileTree(entries[i], files, depth + 1);
                 }
             }
         }
 
         function handleFiles(filesArray) {
-            const files = Array.from(filesArray);
+            let files = Array.from(filesArray);
+            
+            // Filter out files that are in subdirectories
+            files = files.filter(file => {
+                if (file.webkitRelativePath) {
+                    return file.webkitRelativePath.split('/').length <= 2;
+                }
+                return true;
+            });
+            
             const groups = {};
             
             // Group files by base name
