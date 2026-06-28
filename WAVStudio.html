@@ -7,6 +7,9 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='4 2 16 20'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23c084fc;stop-opacity:1' /><stop offset='100%25' style='stop-color:%2338bdf8;stop-opacity:1' /></linearGradient></defs><path fill='url(%23grad)' d='M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z'/></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked-katex-extension/lib/index.umd.js"></script>
     <style>
         :root {
             --bg-color: #09090b;
@@ -979,6 +982,10 @@
     </footer>
 
     <script>
+        if (typeof marked !== 'undefined' && typeof markedKatex !== 'undefined') {
+            marked.use(markedKatex({ throwOnError: false, nonStandard: true }));
+        }
+
         // DOM Elements
         const folderInput = document.getElementById('folderInput');
         const searchInput = document.getElementById('searchInput');
